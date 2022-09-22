@@ -1,6 +1,6 @@
 for (let cnt = 1; cnt <= 20; cnt++) {
   if (cnt % 15 === 0) {
-    console.log('fizzBuzz')
+    console.log('FizzBuzz')
   } else if (cnt % 5 === 0) {
     console.log('Buzz')
   } else if (cnt % 3 === 0) {

@@ -16,27 +16,24 @@ if (argv.m != null) {
 // 月初
 const firstDay = 1
 // 月初の曜日
-let firstWday = new Date(year, month - 1, 1).getDay()
+const firstWday = new Date(year, month - 1, 1).getDay()
 // 月末
 const lastDay = new Date(year, month, 0)
 const lastDayNum = lastDay.getDate()
 
-const title = `      ${year}` + '年' + `${month}` + '月'
+const title = `      ${year}年${month}月`
 console.log(title)
 console.log(' 日 月 火 水 木 金 土')
 
-// 初日の曜日になるまで空白で調整する
+// 初日の曜日になるまで空白で調整
 for (let count = 0; firstWday > count; count++) {
   process.stdout.write('   ')
 }
 
-// 1日~月末まで1ずつ加算しながらループ
-// 10進数の文字列に変換して、引数の文字列の長さ(3)まで' 'で埋める
-// 7の倍数（土曜日)で改行
 for (let day = firstDay; day <= lastDayNum; day++) {
-  firstWday++
+  const wday = firstWday - day + 1
   process.stdout.write(day.toString(10).padStart(3, ' '))
-  if (firstWday % 7 === 0) {
+  if (wday % 7 === 0) {
     process.stdout.write('\n')
   }
 }

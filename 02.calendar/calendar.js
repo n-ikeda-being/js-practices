@@ -17,6 +17,7 @@ if (argv.m != null) {
 const firstDay = 1
 // 月初の曜日
 const firstWday = new Date(year, month - 1, 1).getDay()
+let wday = firstWday
 // 月末
 const lastDay = new Date(year, month, 0)
 const lastDayNum = lastDay.getDate()
@@ -31,7 +32,7 @@ for (let count = 0; firstWday > count; count++) {
 }
 
 for (let day = firstDay; day <= lastDayNum; day++) {
-  const wday = firstWday - day + 1
+  wday++
   process.stdout.write(day.toString(10).padStart(3, ' '))
   if (wday % 7 === 0) {
     process.stdout.write('\n')

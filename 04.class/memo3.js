@@ -8,7 +8,7 @@ function main () {
   if (argv.l) {
     memoFile.showMemos()
   } else if (argv.r) {
-    memoFile.insideMemos()
+    memoFile.referenceMemo()
   } else if (argv.d) {
     memoFile.deleteMemo()
   } else {
@@ -21,6 +21,7 @@ class MemoFile {
     this.memos = JSON.parse(fs.readFileSync('./memos.json', 'utf8'))
   }
 
+  // 作成
   addMemo (input) {
     console.log(input)
     const memos = this.memos
@@ -35,8 +36,22 @@ class MemoFile {
     fs.writeFileSync('./memos.json', JSON.stringify(memos))
   }
 
+  // 全て表示
   showMemos () {
     this.memos.forEach(memo => { console.log(memo.title) })
+  }
+
+  // 削除
+  deleteMemo () {
+    const memos = this.memos
+    console.log('Choose a note you want to delete:')
+    console.log(memos)
+  }
+
+  referenceMemo () {
+    const memos = this.memos
+    console.log('Choose a note you want to see:')
+    console.log(memos)
   }
 }
 

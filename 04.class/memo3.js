@@ -25,7 +25,6 @@ class MemoFile {
   addMemo (input) {
     console.log(input)
     const memos = this.memos
-    console.log(input)
 
     const newMemo = {
       title: input,
@@ -52,7 +51,13 @@ class MemoFile {
   referenceMemo () {
     const memos = this.memos
     const message = 'Choose a note you want to see:'
-    this.#selectPrompt(message, memos)
+    const prompt = this.#selectPrompt(message, memos)
+    prompt.run()
+      .then((answer) => {
+        const memo = memos.find(memo => memo.title === answer)
+        const content = memo.content
+        console.log(content)
+      })
   }
 
   #selectPrompt (message, memos) {
@@ -60,7 +65,7 @@ class MemoFile {
       type: 'select',
       choices: memos,
       message: message
-    }).run()
+    })
   }
 }
 

@@ -42,29 +42,38 @@ class MemoFile {
 
   // 削除
   deleteMemo () {
-    const memos = this.memos
     const message = 'Choose a note you want to delete:'
-    this.#selectPrompt(message, memos)
+    const memos = this.memos
+    const prompt = this.#selectPrompt(message, memos)
+
+    prompt.run()
+      .then((answer) => {
+        const notdeletedmemo = memos.filter(memo => memo.title !== answer) // answer(選択したデータ)以外抽出
+        fs.writeFileSync('./memos.json', JSON.stringify(notdeletedmemo))
+      })
+      .catch(console.error)
   }
 
   // 特定のメモ参照
   referenceMemo () {
-    const memos = this.memos
     const message = 'Choose a note you want to see:'
+    const memos = this.memos
     const prompt = this.#selectPrompt(message, memos)
+
     prompt.run()
       .then((answer) => {
         const memo = memos.find(memo => memo.title === answer)
         const content = memo.content
         console.log(content)
       })
+      .catch(console.error)
   }
 
   #selectPrompt (message, memos) {
     return new Select({
       type: 'select',
-      choices: memos,
-      message: message
+      message: message,
+      choices: memos
     })
   }
 }

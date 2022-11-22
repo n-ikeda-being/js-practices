@@ -44,14 +44,23 @@ class MemoFile {
   // 削除
   deleteMemo () {
     const memos = this.memos
-    console.log('Choose a note you want to delete:')
-    console.log(memos)
+    const message = 'Choose a note you want to delete:'
+    this.#selectPrompt(message, memos)
   }
 
+  // 特定のメモ参照
   referenceMemo () {
     const memos = this.memos
-    console.log('Choose a note you want to see:')
-    console.log(memos)
+    const message = 'Choose a note you want to see:'
+    this.#selectPrompt(message, memos)
+  }
+
+  #selectPrompt (message, memos) {
+    return new Select({
+      type: 'select',
+      choices: memos,
+      message: message
+    }).run()
   }
 }
 

@@ -21,7 +21,7 @@ class MemoFile {
     this.memos = JSON.parse(fs.readFileSync('./memos.json', 'utf8'))
   }
 
-  // 作成
+  // 新規作成
   addMemo (input) {
     console.log(input)
     const memos = this.memos
@@ -40,15 +40,16 @@ class MemoFile {
     this.memos.forEach(memo => { console.log(memo.title) })
   }
 
-  // 削除
+  // 特定のメモ削除
   deleteMemo () {
     const message = 'Choose a note you want to delete:'
     const memos = this.memos
     const prompt = this.#selectPrompt(message, memos)
 
+    // answer(選択したデータ)以外抽出してmemos.jsonに書き込み
     prompt.run()
       .then((answer) => {
-        const notdeletedmemo = memos.filter(memo => memo.title !== answer) // answer(選択したデータ)以外抽出
+        const notdeletedmemo = memos.filter(memo => memo.title !== answer)
         fs.writeFileSync('./memos.json', JSON.stringify(notdeletedmemo))
       })
       .catch(console.error)

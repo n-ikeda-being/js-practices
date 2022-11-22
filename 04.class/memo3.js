@@ -74,7 +74,7 @@ class MemoFile {
   #selectPrompt (message, memos) {
     return new Select({
       type: 'select',
-      message: message,
+      message,
       choices: memos
     })
   }

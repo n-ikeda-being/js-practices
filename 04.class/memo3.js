@@ -67,7 +67,10 @@ class MemoFile {
 
     try {
       const selectData = await prompt.run()
+      const targetMemo = memos.filter(memo => memo.title === selectData)
       console.log(selectData)
+      console.log(targetMemo.content)
+      console.log(targetMemo)
     } catch (error) {
       console.log(error)
     }
@@ -77,10 +80,7 @@ class MemoFile {
     return new Select({
       type: 'select',
       message,
-      choices: memos,
-      result () {
-        return // contentを返したい
-      }
+      choices: memos
     })
   }
 }

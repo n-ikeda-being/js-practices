@@ -44,40 +44,43 @@ class MemoFile {
   }
 
   // 特定のメモ削除
-  deleteMemo () {
+  async deleteMemo () {
     const message = 'Choose a note you want to delete:'
     const memos = this.memos
     const prompt = this.#selectPrompt(message, memos)
 
     // answer(選択したデータ)以外抽出してmemos.jsonに書き込み
-    prompt.run()
-      .then((answer) => {
-        const notdeletedmemo = memos.filter(memo => memo.title !== answer)
-        fs.writeFileSync('./memos.json', JSON.stringify(notdeletedmemo))
-      })
-      .catch(console.error)
+    try {
+      const selectDataTitle = await prompt.run()
+      const notdeletedmemo = memos.filter(memo => memo.title !== selectDataTitle)
+      fs.writeFileSync('./memos.json', JSON.stringify(notdeletedmemo))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // 特定のメモ参照
-  referenceMemo () {
+  async referenceMemo () {
     const message = 'Choose a note you want to see:'
     const memos = this.memos
     const prompt = this.#selectPrompt(message, memos)
 
-    prompt.run()
-      .then((answer) => {
-        const memo = memos.find(memo => memo.title === answer)
-        const content = memo.content
-        console.log(content)
-      })
-      .catch(console.error)
+    try {
+      const selectData = await prompt.run()
+      console.log(selectData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   #selectPrompt (message, memos) {
     return new Select({
       type: 'select',
       message,
-      choices: memos
+      choices: memos,
+      result () {
+        return // contentを返したい
+      }
     })
   }
 }

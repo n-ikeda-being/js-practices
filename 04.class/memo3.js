@@ -12,7 +12,7 @@ function main () {
   } else if (argv.d) {
     memoFile.deleteMemo()
   } else {
-    console.log('文字を入力してください。１行目がタイトル、２行目の文字が内容として保存されます')
+    console.log('文字を入力してください。１行目がタイトル、２行目以降が内容として保存されます')
     const input = fs.readFileSync('/dev/stdin', 'utf8')
     memoFile.addMemo(input)
   }
@@ -26,10 +26,12 @@ class MemoFile {
   addMemo (input) {
     const memos = this.memos
     const inputTitle = input.split('\n')[0]
-    const inputContent = input.split('\n')[1]
+    const inputContent = input.split('\n')
+    inputContent.shift()
+    const Content = inputContent.join('\n')
     const newMemo = {
       title: inputTitle,
-      content: inputContent
+      content: Content
     }
 
     memos.push(newMemo)

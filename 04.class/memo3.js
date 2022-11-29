@@ -67,10 +67,8 @@ class MemoFile {
 
     try {
       const selectData = await prompt.run()
-      const targetMemo = memos.filter(memo => memo.title === selectData)
-      console.log(selectData)
+      const targetMemo = memos.find(memo => memo.title === selectData)
       console.log(targetMemo.content)
-      console.log(targetMemo)
     } catch (error) {
       console.log(error)
     }

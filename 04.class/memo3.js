@@ -52,8 +52,8 @@ class MemoFile {
     // answer(選択したデータ)以外抽出してmemos.jsonに書き込み
     try {
       const selectDataTitle = await prompt.run()
-      const notdeletedmemo = memos.filter(memo => memo.title !== selectDataTitle)
-      fs.writeFileSync('./memos.json', JSON.stringify(notdeletedmemo))
+      const availableMemos = memos.filter(memo => memo.title !== selectDataTitle)
+      fs.writeFileSync('./memos.json', JSON.stringify(availableMemos))
     } catch (error) {
       console.log(error)
     }
